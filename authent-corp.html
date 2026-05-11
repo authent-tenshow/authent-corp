@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>株式会社オーセント | AUTHENT Inc.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Noto+Sans+JP:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Dark sections */
+  --dark-bg:    #152542;
+  --dark-bg2:   #1a2e52;
+  --dark-text:  #e8f0f8;
+  --dark-dim:   #8aaac8;
+  --dark-muted: #4a6585;
+  --dark-border:#2a4068;
+
+  /* Light sections */
+  --light-bg:   #f7f4ef;
+  --light-bg2:  #eeeae3;
+  --light-text: #0c1828;
+  --light-dim:  #3a5068;
+  --light-muted:#8899aa;
+  --light-border:#d8d0c4;
+
+  /* Accent */
+  --gold:       #b8893a;
+  --gold-lit:   #d4a85a;
+  --blue:       #2a5fa0;
+  --blue-lit:   #4a88d8;
+  --blue-pale:  #c8daf2;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans JP',sans-serif;font-weight:300;line-height:1.8;overflow-x:hidden;background:var(--dark-bg);}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:22px 64px;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:all 0.4s;
+}
+nav.scrolled{
+  background:rgba(12,24,40,0.96);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--dark-border);
+}
+.nav-logo{display:flex;flex-direction:column;gap:2px;text-decoration:none;}
+.nav-logo-en{font-family:'DM Mono',monospace;font-size:15px;letter-spacing:0.25em;color:#c8daf2;}
+.nav-logo-ja{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--dark-dim);}
+.nav-links{display:flex;gap:44px;list-style:none;}
+.nav-links a{
+  font-size:10px;letter-spacing:0.18em;
+  color:var(--dark-dim);text-decoration:none;text-transform:uppercase;
+  transition:color 0.3s;position:relative;
+}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:100%;height:1px;background:var(--gold);transition:right 0.3s;}
+.nav-links a:hover{color:var(--dark-text);}
+.nav-links a:hover::after{right:0;}
+
+/* ── HERO (dark) ── */
+.hero{
+  min-height:100vh;
+  background:var(--dark-bg);
+  display:flex;align-items:center;
+  padding:140px 64px 100px;
+  position:relative;overflow:hidden;
+}
+.hero-glow{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 55% 65% at 72% 45%, rgba(42,95,160,0.18) 0%,transparent 70%),
+    radial-gradient(ellipse 35% 45% at 15% 70%, rgba(26,48,80,0.25) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(42,95,160,0.06) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(42,95,160,0.06) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse 70% 70% at 65% 40%,black 0%,transparent 75%);
+}
+.hero-inner{position:relative;z-index:2;max-width:860px;}
+.hero-eyebrow{
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.32em;
+  color:var(--gold-lit);text-transform:uppercase;
+  margin-bottom:32px;display:flex;align-items:center;gap:14px;
+  opacity:0;animation:fadeUp 1s 0.2s ease both;
+}
+.hero-eyebrow::before{content:'';width:0;}
+.hero-h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(54px,7.5vw,104px);
+  font-weight:300;line-height:1.02;letter-spacing:-0.02em;
+  color:var(--dark-text);
+  margin-bottom:14px;
+  opacity:0;animation:fadeUp 1s 0.4s ease both;
+}
+.hero-h1 em{font-style:italic;color:var(--blue-pale);}
+.hero-sub{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(17px,2.2vw,26px);font-weight:300;
+  color:var(--dark-dim);letter-spacing:0.06em;
+  margin-bottom:48px;
+  opacity:0;animation:fadeUp 1s 0.6s ease both;
+}
+.hero-brand{
+  display:block;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,4vw,52px);font-weight:300;
+  color:var(--gold-lit);letter-spacing:0.2em;
+  text-align:right;margin-top:4px;
+}
+.hero-lead{
+  font-size:15px;line-height:2.2;color:var(--dark-dim);
+  max-width:500px;padding:22px 0 22px 28px;
+  border-left:2px solid var(--gold);
+  opacity:0;animation:fadeUp 1s 0.8s ease both;
+}
+.hero-cta{
+  margin-top:48px;display:flex;gap:18px;
+  opacity:0;animation:fadeUp 1s 1s ease both;
+}
+.btn-primary{
+  padding:14px 36px;background:var(--blue);
+  border:1px solid var(--blue);color:#e8f4ff;
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;
+  text-transform:uppercase;text-decoration:none;cursor:pointer;
+  transition:all 0.3s;border-radius:6px;
+}
+.btn-primary:hover{background:var(--blue-lit);border-color:var(--blue-lit);}
+.btn-ghost{
+  padding:14px 36px;font-family:'DM Mono',monospace;font-size:10px;
+  letter-spacing:0.2em;color:var(--dark-dim);text-transform:uppercase;
+  text-decoration:none;border:1px solid var(--dark-border);
+  transition:color 0.3s,border-color 0.3s;border-radius:6px;
+}
+.btn-ghost:hover{color:var(--dark-text);border-color:var(--dark-dim);}
+.scroll-hint{
+  position:absolute;bottom:48px;right:64px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.2em;
+  color:var(--dark-muted);text-transform:uppercase;
+  opacity:0;animation:fadeUp 1s 1.2s ease both;
+}
+.scroll-line{width:1px;height:56px;background:linear-gradient(var(--dark-border),transparent);animation:sp 2s ease-in-out infinite;}
+@keyframes sp{0%,100%{opacity:0.3;}50%{opacity:1;}}
+
+/* ── NUMBERS (light) ── */
+.numbers{
+  background:var(--light-bg);
+  border-top:4px solid var(--blue);
+  padding:80px 64px;
+}
+.numbers-inner{
+  max-width:1160px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:16px;
+}
+.num-card{
+  background:var(--light-bg);padding:40px 32px;
+  transition:background 0.3s;
+  border:1px solid var(--light-border);
+  border-radius:12px;
+}
+.num-card:hover{background:#fff;}
+.num-val{
+  font-family:'Cormorant Garamond',serif;
+  font-size:50px;font-weight:300;
+  color:var(--blue);line-height:1;margin-bottom:6px;
+  letter-spacing:-0.02em;
+}
+.num-unit{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.15em;text-transform:uppercase;}
+.num-label{font-size:13px;color:var(--light-muted);margin-top:12px;line-height:1.8;}
+
+/* ── VISION (dark) ── */
+.vision{
+  background:var(--dark-bg2);
+  border-top:1px solid var(--dark-border);
+  padding:130px 64px;
+}
+.vision-inner{max-width:1100px;margin:0 auto;}
+.vision-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(26px,4vw,52px);font-weight:300;line-height:1.5;
+  letter-spacing:0.02em;color:var(--dark-text);
+  padding-left:44px;border-left:2px solid var(--gold);
+  margin-bottom:56px;
+}
+.vision-body{
+  max-width:740px;margin-left:44px;
+  font-size:15px;line-height:2.4;color:var(--dark-dim);
+}
+.vision-body p+p{margin-top:28px;}
+
+/* ── MESSAGE (light) ── */
+.message{background:var(--light-bg);padding:130px 64px;}
+.msg-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:260px 1fr;gap:90px;align-items:start;}
+.msg-left{position:sticky;top:120px;}
+.msg-portrait{
+  width:190px;height:230px;
+  background:linear-gradient(135deg,var(--dark-bg2),var(--dark-bg));
+  border:1px solid var(--dark-border);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;border-radius:8px;
+}
+.msg-init{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;color:var(--blue-pale);opacity:0.5;}
+.msg-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;letter-spacing:0.06em;color:var(--light-text);margin-bottom:5px;}
+.msg-role{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;}
+.msg-line{width:32px;height:1px;background:var(--gold);margin:18px 0;}
+.msg-contact{font-size:13px;color:var(--light-muted);line-height:2.1;}
+.msg-right{font-size:14px;line-height:2.4;color:var(--light-dim);}
+.msg-right p+p{margin-top:26px;}
+.msg-right strong{color:var(--blue);font-weight:500;}
+.msg-sign{margin-top:44px;padding-top:24px;border-top:1px solid var(--light-border);font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:0.1em;color:var(--light-muted);}
+
+/* ── SECTION TAG ── */
+.stag{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:0.32em;
+  text-transform:uppercase;margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
+}
+.stag::before{content:'';width:26px;height:1px;flex-shrink:0;}
+.stag-dark{color:var(--gold-lit);}
+.stag-dark::before{background:var(--gold);}
+.stag-light{color:var(--gold);}
+.stag-light::before{background:var(--gold);}
+.sh2-dark{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,64px);font-weight:300;line-height:1.1;letter-spacing:-0.01em;color:var(--dark-text);margin-bottom:56px;}
+.sh2-light{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,64px);font-weight:300;line-height:1.1;letter-spacing:-0.01em;color:var(--light-text);margin-bottom:56px;}
+
+/* ── BUSINESS (dark) ── */
+.business{background:var(--dark-bg);border-top:1px solid var(--dark-border);padding:130px 64px;}
+.biz-inner{max-width:1160px;margin:0 auto;}
+.biz-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.biz-card{
+  background:var(--dark-bg2);padding:48px 36px;
+  transition:background 0.3s;position:relative;overflow:hidden;
+  border:1px solid var(--dark-border);border-radius:12px;
+}
+.biz-card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,var(--blue),var(--blue-pale));
+  transform:scaleX(0);transform-origin:left;transition:transform 0.4s;
+}
+.biz-card:hover{background:var(--dark-bg2);}
+.biz-card:hover::after{transform:scaleX(1);}
+.biz-num{display:none;}
+.badge-wrap{margin-bottom:20px;}
+.badge-type{
+  display:inline-block;
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;
+  text-transform:uppercase;color:var(--blue-lit);
+  position:relative;padding:0 0 2px 0;
+  border-bottom:1px solid var(--blue-lit);
+}
+.badge-type::before,.badge-type::after{content:none;}
+.badge-status{
+  position:absolute;top:16px;right:16px;
+  display:inline-block;
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;
+  text-transform:uppercase;padding:3px 10px;border-radius:20px;
+}
+.badge{
+  display:inline-block;
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;
+  text-transform:uppercase;padding:5px 14px;
+  border-radius:20px;
+}
+.badge-live{background:rgba(42,95,160,0.2);color:var(--blue-pale);border:1px solid rgba(42,95,160,0.4);}
+.badge-soon{background:rgba(184,137,58,0.15);color:var(--gold-lit);border:1px solid rgba(184,137,58,0.3);}
+
+.biz-icon{width:32px;height:32px;margin-bottom:20px;display:block;color:var(--gold);}
+.biz-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;line-height:1.3;margin-bottom:16px;color:var(--dark-text);}
+.biz-desc{font-size:14px;line-height:2.1;color:var(--dark-dim);}
+
+/* ── OVERVIEW (light) ── */
+.overview{background:var(--light-bg2);padding:130px 64px;}
+.ov-inner{max-width:1100px;margin:0 auto;}
+.ov-table{width:100%;border-collapse:collapse;}
+.ov-table tr{border-bottom:1px solid var(--light-border);}
+.ov-table tr:first-child{border-top:1px solid var(--light-border);}
+.ov-table td{padding:26px 0;vertical-align:top;}
+.ov-table td:first-child{width:230px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;padding-right:48px;}
+.ov-table td:last-child{font-size:14px;color:var(--light-dim);line-height:2;}
+
+/* ── CONTACT (dark) ── */
+.contact{background:var(--dark-bg2);border-top:1px solid var(--dark-border);padding:130px 64px;}
+.ct-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:90px;align-items:start;}
+.ct-left p{font-size:13px;line-height:2.2;color:var(--dark-dim);margin-top:16px;}
+.ct-email{display:block;margin-top:28px;font-family:'DM Mono',monospace;font-size:13px;letter-spacing:0.08em;color:var(--blue-pale);text-decoration:none;padding-bottom:6px;border-bottom:1px solid var(--dark-border);transition:border-color 0.3s;}
+.ct-email:hover{border-color:var(--blue-pale);}
+.cf{display:flex;flex-direction:column;gap:20px;}
+.cf-row{display:flex;flex-direction:column;gap:7px;}
+.cf-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--gold-lit);text-transform:uppercase;}
+.cf-in,.cf-ta{
+  background:var(--dark-bg);border:1px solid var(--dark-border);
+  color:var(--dark-text);padding:13px 16px;
+  font-family:'Noto Sans JP',sans-serif;font-size:13px;font-weight:300;
+  outline:none;transition:border-color 0.3s;-webkit-appearance:none;resize:none;
+  border-radius:6px;
+}
+.cf-in:focus,.cf-ta:focus{border-color:var(--blue);}
+.cf-in::placeholder,.cf-ta::placeholder{color:var(--dark-muted);font-size:12px;}
+.cf-btn{
+  background:var(--blue);border:1px solid var(--blue);
+  color:#e8f4ff;padding:15px 40px;
+  font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.22em;
+  text-transform:uppercase;cursor:pointer;
+  transition:background 0.3s,border-color 0.3s;align-self:flex-start;
+  border-radius:6px;
+}
+.cf-btn:hover{background:var(--blue-lit);border-color:var(--blue-lit);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--dark-bg);
+  border-top:1px solid var(--dark-border);
+  padding:40px 64px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.ft-logo{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.2em;color:var(--dark-dim);}
+.ft-r{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+.ft-copy{font-family:'DM Mono',monospace;font-size:9px;color:var(--dark-muted);letter-spacing:0.1em;}
+.ft-pp{font-size:10px;color:var(--dark-muted);text-decoration:none;transition:color 0.3s;}
+.ft-pp:hover{color:var(--dark-dim);}
+
+/* ── DIVIDER ── */
+.stripe{height:4px;background:linear-gradient(to right,var(--dark-bg) 0%,var(--blue) 30%,var(--blue-pale) 60%,var(--gold) 80%,var(--dark-bg) 100%);}
+
+/* ── ANIMATE ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity 0.85s ease,transform 0.85s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
+
+@media(max-width:900px){
+  nav{padding:18px 24px;}.nav-links{display:none;}
+  .hero{padding:110px 24px 80px;}.scroll-hint{display:none;}
+  .numbers{padding:60px 24px;}.numbers-inner{grid-template-columns:repeat(2,1fr);}
+  .vision{padding:80px 24px;}.message{padding:80px 24px;}
+  .msg-wrap{grid-template-columns:1fr;gap:40px;}.msg-left{position:static;}
+  .business{padding:80px 24px;}.biz-grid{grid-template-columns:1fr;}
+  .overview{padding:80px 24px;}.contact{padding:80px 24px;}
+  .ct-inner{grid-template-columns:1fr;gap:40px;}
+  footer{padding:36px 24px;flex-direction:column;gap:14px;text-align:center;}
+  .ft-r{align-items:center;}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <span class="nav-logo-en">AUTHENT</span>
+    <span class="nav-logo-ja">株式会社オーセント</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#message">Message</a></li>
+    <li><a href="#business">Business</a></li>
+    <li><a href="#company">Company</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO: deep navy -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow"><span style="letter-spacing:0">————</span> Real Estate Asset Platform <span style="letter-spacing:0">————</span></div>
+    <h1 class="hero-h1">あなたの家の<br>価値を<em>証明</em>する</h1>
+    <p class="hero-sub">資産の本来価値を可視化するプラットフォーム<br><span class="hero-brand">AUTHENT</span></p>
+    <p class="hero-lead">
+      すべての投資に、本来の価値がある。<br>
+      記録が、その証になる。
+    </p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="#vision">Our Vision →</a>
+      <a class="btn-ghost" href="#contact">Contact</a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-line"></div>Scroll</div>
+</section>
+
+<!-- NUMBERS: warm cream -->
+<div class="numbers">
+  <div class="numbers-inner">
+    <div class="num-card reveal">
+      <div class="num-val">16<span style="font-size:26px">兆</span></div>
+      <div class="num-unit">JPY / Year</div>
+      <div class="num-label">日本の住宅メンテナンス市場規模（2024年）</div>
+    </div>
+    <div class="num-card reveal d1">
+      <div class="num-val">820<span style="font-size:26px">万</span></div>
+      <div class="num-unit">Units</div>
+      <div class="num-label">全国の空き家数（2024年・増加中）</div>
+    </div>
+    <div class="num-card reveal d2">
+      <div class="num-val">25<span style="font-size:26px">年</span></div>
+      <div class="num-unit">Avg. Lifespan</div>
+      <div class="num-label">日本の住宅価値がゼロになるまでの平均年数</div>
+    </div>
+    <div class="num-card reveal d3">
+      <div class="num-val">100<span style="font-size:26px">年</span></div>
+      <div class="num-unit">European Avg.</div>
+      <div class="num-label">欧米の建物が価値を保ち続ける平均年数</div>
+    </div>
+  </div>
+</div>
+
+<div class="stripe"></div>
+
+<!-- VISION: dark -->
+<section class="vision" id="vision">
+  <div class="vision-inner">
+    <div class="stag stag-dark reveal">Vision</div>
+    <p class="vision-quote reveal">
+      記録を、資産に育てる。
+    </p>
+    <div class="vision-body reveal">
+      <p>日本の中古住宅市場には、構造的な問題があります。建物が適切に管理・維持されていても、その記録が存在しないため、売却時に正当な評価を受けることができません。結果として、オーナーはメンテナンスへの投資意欲を失い、建物は劣化していく——この悪循環が続いています。</p>
+      <p>AUTHENTは、この悪循環を断ち切ります。メンテナンス履歴・工事記録・検査データを一元管理し、住宅の資産価値を可視化する。管理することが、そのまま資産価値の向上に繋がる設計——これが私たちのビジョンです。</p>
+      <p>住宅だけでなく、車両・健康・スキルまでを統合した生活資産管理プラットフォームとして、日本の不動産市場に新しいスタンダードをつくります。</p>
+    </div>
+  </div>
+</section>
+
+<div class="stripe"></div>
+
+<!-- MESSAGE: light -->
+<section class="message" id="message">
+  <div class="msg-wrap">
+    <div class="msg-left reveal">
+      <div class="msg-portrait"><span class="msg-init">O</span></div>
+      <p class="msg-name">大久保 達也</p>
+      <p class="msg-role">代表取締役 / CEO</p>
+      <div class="msg-line"></div>
+      <p class="msg-contact">
+        株式会社オーセント<br>AUTHENT Inc.<br><br>
+        〒596-0067<br>大阪府岸和田市南町39番11号<br><br>
+        contact@authent-inc.com<br>050-1721-8418
+      </p>
+    </div>
+    <div class="msg-right reveal d1">
+      <div class="stag stag-light" style="margin-bottom:32px">Message</div>
+      <p><strong>「なぜ日本の家は、管理されているのに評価されないのか。」</strong></p>
+      <p>この問いが、AUTHENTの出発点です。欧米では築100年の建物が価値を持ち続けます。その差は「記録があるかどうか」です。日本でも、同じことができるはずだと確信しています。</p>
+      <p>私たちが目指すのは、住宅オーナーが「管理すればするほど得をする」仕組みをつくること。メンテナンス記録がスコアになり、スコアが資産価値のカルテになる。この設計が当たり前になれば、日本の住宅の平均寿命は確実に伸びます。</p>
+      <p>不動産テック、AI、データ分析——最先端の技術を使いながら、目指すのはシンプルです。<strong>「あなたの家の価値を、可視化する。」</strong>その一点に集中します。</p>
+      <div class="msg-sign">大久保 達也</div>
+    </div>
+  </div>
+</section>
+
+<div class="stripe"></div>
+
+<!-- BUSINESS: dark -->
+<section class="business" id="business">
+  <div class="biz-inner">
+    <div class="stag stag-dark reveal">Business</div>
+    <h2 class="sh2-dark reveal">事業内容</h2>
+    <div class="biz-grid">
+      <div class="biz-card reveal">
+        <div class="badge-wrap"><span class="badge-type">マイアセットカルテ</span><span class="badge-status badge-live">提供中</span></div>
+        <svg class="biz-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+        <h3 class="biz-name">住宅カルテ</h3><p class="biz-desc">住宅のメンテナンス履歴・工事記録・点検データを一元管理するカルテ。資産価値スコアを自動算出し、売却・融資・保険に活用できます。</p></div>
+      <div class="biz-card reveal d1">
+        <div class="badge-wrap"><span class="badge-type">マイアセットカルテ</span><span class="badge-status badge-soon">Coming Soon</span></div>
+        <svg class="biz-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1" y="9" width="22" height="10" rx="2"/><path d="M5 9V6a1 1 0 011-1h12a1 1 0 011 1v3"/><circle cx="7" cy="19" r="2"/><circle cx="17" cy="19" r="2"/></svg>
+        <h3 class="biz-name">車両カルテ</h3><p class="biz-desc">電子車検証APIと整備記録を組み合わせ、車両の資産価値を可視化。整備記録連動型の独自相場データベース構築を目指します。</p></div>
+      <div class="biz-card reveal d2">
+        <div class="badge-wrap"><span class="badge-type">マッチング</span><span class="badge-status badge-live">提供中</span></div>
+        <svg class="biz-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+        <h3 class="biz-name">メンテナンス業者マッチング</h3><p class="biz-desc">住宅オーナーと全国の工務店・職人をつなぐプラットフォーム。安全な決済と蓄積された施工実績が、信頼できる業者選びを支えます。</p></div>
+      <div class="biz-card reveal">
+        <div class="badge-wrap"><span class="badge-type">情報プラットフォーム</span><span class="badge-status badge-soon">Coming Soon</span></div>
+        <svg class="biz-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11M8 10v11M16 10v11M12 10v11"/></svg>
+        <h3 class="biz-name">不動産売買・賃貸情報プラットフォーム</h3><p class="biz-desc">売り気配・空き気配のマッチングと内覧スケジュール調整を自動化。宅建業取得後は元付け専門の仲介業者として全国展開します。</p></div>
+
+      <div class="biz-card reveal d2">
+        <div class="badge-wrap"><span class="badge-type">マッチング</span><span class="badge-status badge-soon">Coming Soon</span></div>
+        <svg class="biz-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/><path d="M16 3.13a4 4 0 010 7.75M20 20c0-3-2-5.5-4-6.5"/></svg>
+        <h3 class="biz-name">建設フリーランスマッチング</h3><p class="biz-desc">建設・リフォーム分野のフリーランス職人と発注者をつなぐマッチングサービス。フリーランス新法に対応した安心・安全な報酬保護を提供します。</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="stripe"></div>
+
+<!-- OVERVIEW: light -->
+<section class="overview" id="company">
+  <div class="ov-inner">
+    <div class="stag stag-light reveal">Company</div>
+    <h2 class="sh2-light reveal">会社概要</h2>
+    <table class="ov-table reveal">
+      <tr><td>Company Name</td><td>株式会社オーセント（AUTHENT Inc.）</td></tr>
+      <tr><td>Founded</td><td>2016年</td></tr>
+      <tr><td>Capital</td><td>500万円</td></tr>
+      <tr><td>Representative</td><td>代表取締役　大久保 達也</td></tr>
+      <tr><td>Address</td><td>〒596-0067　大阪府岸和田市南町39番11号</td></tr>
+      <tr><td>Business</td><td>マイアセットカルテ（住宅カルテ・車両カルテ）の開発・運営／メンテナンス業者マッチングサービス／不動産情報プラットフォームの運営</td></tr>
+      <tr><td>Email</td><td>contact@authent-inc.com</td></tr>
+      <tr><td>Tel</td><td>050-1721-8418</td></tr>
+    </table>
+  </div>
+</section>
+
+<div class="stripe"></div>
+
+<!-- CONTACT: dark -->
+<section class="contact" id="contact">
+  <div class="ct-inner">
+    <div class="ct-left">
+      <div class="stag stag-dark reveal">Contact</div>
+      <h2 class="sh2-dark reveal" style="margin-bottom:16px">お問い合わせ</h2>
+      <a class="ct-email reveal" href="mailto:contact@authent-inc.com">contact@authent-inc.com</a>
+    </div>
+    <form class="cf reveal d1" onsubmit="handleSubmit(event)">
+      <div class="cf-row"><label class="cf-label">Company / Name</label><input class="cf-in" type="text" placeholder="会社名・お名前"></div>
+      <div class="cf-row"><label class="cf-label">Email</label><input class="cf-in" type="email" placeholder="メールアドレス"></div>
+      <div class="cf-row"><label class="cf-label">Subject</label><input class="cf-in" type="text" placeholder="件名"></div>
+      <div class="cf-row"><label class="cf-label">Message</label><textarea class="cf-ta" rows="6" placeholder="お問い合わせ内容"></textarea></div>
+      <button class="cf-btn" type="submit">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-logo">AUTHENT Inc. — 株式会社オーセント</div>
+  <div class="ft-r">
+    <div class="ft-copy">© 2026 AUTHENT Inc. All rights reserved.</div>
+    <a class="ft-pp" href="authent-privacy.html">Privacy Policy</a>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+});
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+},{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=e.target.querySelector('.cf-btn');
+  btn.textContent='Sent ✓';btn.style.background='#2a8a40';btn.disabled=true;
+}
+</script>
+</body>
+</html>
