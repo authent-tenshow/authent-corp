@@ -115,6 +115,30 @@ nav.scrolled{
   color:var(--gold-lit);letter-spacing:0.2em;
   text-align:right;margin-top:4px;
 }
+.hero-brand-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:16px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,4vw,52px);font-weight:300;
+  color:var(--gold-lit);letter-spacing:0.2em;
+  text-decoration:none;
+  margin-top:8px;
+  padding:12px 32px;
+  border:1px solid var(--gold);
+  cursor:default;
+  transition:all 0.3s;
+}
+.hero-brand-badge{
+  font-family:'DM Mono',monospace;
+  font-size:10px;letter-spacing:0.15em;
+  color:var(--gold);
+  text-transform:uppercase;
+  border:1px solid var(--gold);
+  padding:3px 10px;
+  border-radius:20px;
+  opacity:0.7;
+}
 .hero-lead{
   font-size:15px;line-height:2.2;color:var(--dark-dim);
   max-width:500px;padding:22px 0 22px 28px;
@@ -374,7 +398,7 @@ footer{
   <div class="hero-inner">
     <div class="hero-eyebrow"><span style="letter-spacing:0">————</span> Real Estate Asset Platform <span style="letter-spacing:0">————</span></div>
     <h1 class="hero-h1">あなたの家の<br>価値を<em>証明</em>する</h1>
-    <p class="hero-sub">資産の本来価値を可視化するプラットフォーム<br><span class="hero-brand">AUTHENT</span></p>
+    <p class="hero-sub">資産の本来価値を可視化するプラットフォーム<br><a class="hero-brand-btn" href="#">AUTHENT <span class="hero-brand-badge">App Coming Soon</span></a></p>
     <p class="hero-lead">
       すべての投資に、本来の価値がある。<br>
       記録が、その証になる。
