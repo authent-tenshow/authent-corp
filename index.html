@@ -203,10 +203,10 @@ nav.scrolled{
   width:190px;height:230px;
   background:linear-gradient(135deg,var(--dark-bg2),var(--dark-bg));
   border:1px solid var(--dark-border);
-  display:flex;align-items:center;justify-content:center;
+  display:block;overflow:hidden;
   margin-bottom:24px;border-radius:8px;
 }
-.msg-init{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;color:var(--blue-pale);opacity:0.5;}
+.msg-portrait img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 28%;}
 .msg-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;letter-spacing:0.06em;color:var(--light-text);margin-bottom:5px;}
 .msg-role{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;}
 .msg-line{width:32px;height:1px;background:var(--gold);margin:18px 0;}
@@ -448,7 +448,9 @@ footer{
 <section class="message" id="message">
   <div class="msg-wrap">
     <div class="msg-left reveal">
-      <div class="msg-portrait"><span class="msg-init">O</span></div>
+      <div class="msg-portrait">
+        <img src="assets/ceo/ceo-okubo-authent-portrait.png" alt="株式会社オーセント 代表取締役CEO 大久保達也">
+      </div>
       <p class="msg-name">大久保達也</p>
       <p class="msg-role">代表取締役 / CEO</p>
       <div class="msg-line"></div>
